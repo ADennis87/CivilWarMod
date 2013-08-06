@@ -1,0 +1,8 @@
+1. Horseman Soldier
+2. Camps
+3. Spawning for the soldiers so that they spawn relative to their rank... ex: A soldier would more commonly spawn than a captain.
+4. Soldiers have nametags for their rank... ex: Pvt. (has a different skins than a Sgt.)
+5. GUI for soldier
+6. Randomize skins for soldiers (maybe, not really neccesary)
+7. Villages/Citizens, soldiers protect them.
+
