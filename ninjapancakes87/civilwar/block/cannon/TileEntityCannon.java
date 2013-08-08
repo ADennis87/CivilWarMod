@@ -9,7 +9,8 @@ public class TileEntityCannon extends TileEntity{
 	@Override
     public void readFromNBT(NBTTagCompound nbtTagCompound) {
 		super.readFromNBT(nbtTagCompound);
-		byte rotation = nbtTagCompound.getByte("rotation");
+		byte r = nbtTagCompound.getByte("rotation");
+		this.setRotation(r);
 	}
 	@Override
     public void writeToNBT(NBTTagCompound nbtTagCompound) {

@@ -11,9 +11,9 @@ public final class DispenserBehaviorCannon extends BehaviorProjectileDispense
     /**
      * Return the projectile entity spawned by this dispense behavior.
      */
-    protected IProjectile getProjectileEntity(World par1World, IPosition par2IPosition)
+    protected EntityCannonBall getProjectileEntity(World par1World, IPosition par2IPosition)
     {
-        EntityCannonBall entityarrow = new EntityCannonBall(par1World, par2IPosition.getX() + 1, par2IPosition.getY() + 1, par2IPosition.getZ());
+        EntityCannonBall entityarrow = new EntityCannonBall(par1World, par2IPosition.getX(), par2IPosition.getY(), par2IPosition.getZ());
         entityarrow.canBePickedUp = 0;
         return entityarrow;
     }

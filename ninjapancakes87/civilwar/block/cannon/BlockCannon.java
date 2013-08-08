@@ -10,7 +10,6 @@ import net.minecraft.dispenser.IPosition;
 import net.minecraft.dispenser.PositionImpl;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -20,6 +19,7 @@ import net.minecraft.world.World;
 import ninjapancakes87.civilwar.CivilWar;
 import ninjapancakes87.civilwar.Extras;
 import ninjapancakes87.civilwar.Registry;
+import ninjapancakes87.civilwar.item.EntityCannonBall;
 
 public class BlockCannon extends BlockContainer {
 	
@@ -52,22 +52,22 @@ public class BlockCannon extends BlockContainer {
             //South
             if(par7 == 0){
                 tile.setRotation((byte)2);
-                par1World.setBlockMetadataWithNotify(par2, par3, par4, 2, 2);
+                par1World.setBlockMetadataWithNotify(par2, par3, par4, 3, 2);
             }
             //West
             if(par7 == 1){
                 tile.setRotation((byte)5);
-                par1World.setBlockMetadataWithNotify(par2, par3, par4, 5, 2);
+                par1World.setBlockMetadataWithNotify(par2, par3, par4, 4, 2);
             }
             //North
             if(par7 == 2){
                 tile.setRotation((byte)3);
-                par1World.setBlockMetadataWithNotify(par2, par3, par4, 3, 2);
+                par1World.setBlockMetadataWithNotify(par2, par3, par4, 2, 2);
             }
             //East
             if(par7 == 3){
                 tile.setRotation((byte)4);
-                par1World.setBlockMetadataWithNotify(par2, par3, par4, 4, 2);
+                par1World.setBlockMetadataWithNotify(par2, par3, par4, 5, 2);
             }
         }
 
@@ -96,20 +96,21 @@ public class BlockCannon extends BlockContainer {
 		World world = par1IBlockSource.getWorld();
         IPosition iposition = BlockCannon.getIPositionFromBlockSource(par1IBlockSource);
         EnumFacing enumfacing = BlockCannon.getFacing(par1IBlockSource.getBlockMetadata());
-        IProjectile iprojectile = dbc.getProjectileEntity(world, iposition);
-        setProjectileHeading(iprojectile, enumfacing);
+        EntityCannonBall iprojectile = dbc.getProjectileEntity(world, iposition);
+        iprojectile.setThrowableHeading((double)enumfacing.getFrontOffsetX(), (double)((float)enumfacing.getFrontOffsetY()), (double)enumfacing.getFrontOffsetZ(), Extras.func_82500_b(), Extras.func_82498_a());
         world.spawnEntityInWorld((Entity)iprojectile);
         //par2ItemStack.splitStack(1);
         return par2ItemStack;
 	}
-	public void setProjectileHeading(IProjectile iprojectile, EnumFacing enumfacing){
+	/*public void setProjectileHeading(EntityCannonBall iprojectile, EnumFacing enumfacing){
 		iprojectile.setThrowableHeading((double)enumfacing.getFrontOffsetX(), (double)((float)enumfacing.getFrontOffsetY()), (double)enumfacing.getFrontOffsetZ(), Extras.func_82500_b(), Extras.func_82498_a());
-	}
+	}*/
 	public static IPosition getIPositionFromBlockSource(IBlockSource par0IBlockSource)
     {
         EnumFacing enumfacing = getFacing(par0IBlockSource.getBlockMetadata());
-        double d0 = par0IBlockSource.getX() + 0.7D * (double)enumfacing.getFrontOffsetX() + 15.0D;
-        double d1 = par0IBlockSource.getY() + 0.7D * (double)enumfacing.getFrontOffsetY() + 10.0D;
+        System.out.println(enumfacing + " with metadata " + par0IBlockSource.getBlockMetadata());
+        double d0 = par0IBlockSource.getX() + 0.7D * (double)enumfacing.getFrontOffsetX();
+        double d1 = par0IBlockSource.getY() + 0.7D * (double)enumfacing.getFrontOffsetY();
         double d2 = par0IBlockSource.getZ() + 0.7D * (double)enumfacing.getFrontOffsetZ();
         return new PositionImpl(d0, d1, d2);
     }
