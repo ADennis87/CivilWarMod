@@ -24,14 +24,14 @@ public class CivilWar {
 	@Instance(CivilWar.modid)
 	public static CivilWar instance;
 	
-	@SidedProxy(clientSide="ninjapancakes87.civilwar.client.CivilWarClientProxy", serverSide="ninjapancakes87.civilwar.common.CivilWarCommonProxy")
+	@SidedProxy(clientSide="ninjapancakes87.civilwar.client.CivilWarClientProxy", serverSide="ninjapancakes87.civilwar.CivilWarCommonProxy")
 	public static CivilWarCommonProxy proxy;
 	
 	public static CivilWarClientProxy client;
 	
 	public static final String modid = "civil war";
 	
-	public static final String version = "Build 4";
+	public static final String version = "Build 5";
 	
 	public static CreativeTabs tabCivilWar = new CreativeTabCivilWar(CreativeTabs.getNextID(),"tabCivilWar");
 	

@@ -11,9 +11,8 @@ import cpw.mods.fml.common.IWorldGenerator;
 public class Ore implements IWorldGenerator{
 
 	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world,
-			IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-			switch (world.provider.dimensionId)
+	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+		switch (world.provider.dimensionId)
 		 {
 		 case 0: generateSurface(world, random, chunkX*16, chunkZ*16);
 		 }
@@ -21,14 +20,14 @@ public class Ore implements IWorldGenerator{
 	}
 	private void generateSurface(World world, Random random, int blockX, int blockZ) 
 	 {
-	 	// will generate the ore 10 times per chunk
+	 	// will generate the ore 12 times per chunk
 	 	int GenRate = 12;
 		 for (int i = 0; i < GenRate; ++i) {
-			 int Xcoord = blockX + random.nextInt(16);
-			 int Ycoord = random.nextInt(70);
+			int Xcoord = blockX + random.nextInt(16);
+			int Ycoord = random.nextInt(70);
 		 	int Zcoord = blockZ + random.nextInt(16);
 
-		 (new WorldGenMinable(Registry.leadOre.blockID, 10)).generate(world, random, Xcoord, Ycoord, Zcoord);}		 
+		 	(new WorldGenMinable(Registry.leadOre.blockID, 10)).generate(world, random, Xcoord, Ycoord, Zcoord);}		 
 	 }
 
 }

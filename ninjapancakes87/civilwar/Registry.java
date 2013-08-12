@@ -14,6 +14,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import ninjapancakes87.civilwar.Entity.EntitySoldier_Rebel;
 import ninjapancakes87.civilwar.Entity.EntitySoldier_Union;
 import ninjapancakes87.civilwar.block.BlockDefault;
+import ninjapancakes87.civilwar.block.BlockGhost;
 import ninjapancakes87.civilwar.block.cannon.BlockCannon;
 import ninjapancakes87.civilwar.block.cannon.TileEntityCannon;
 import ninjapancakes87.civilwar.client.CivilWarClientProxy;
@@ -45,6 +46,7 @@ public class Registry {
 
 	public static Item musket;
 	public static Item musketball;
+	public static Item cannonball;
 	public static Item revolver;
 	public static Item saber;
 	public static Item cloth;
@@ -62,7 +64,7 @@ public class Registry {
 	public static Block leadOre;
 	
 	public static Block cannon;
-	public static Item cannonball;
+    public static Block ghost;
 	
 	public static void preInit() {
 		BlocksAndItems();
@@ -97,8 +99,9 @@ public class Registry {
 		boots = (new CWArmor(Config.bootsID,ClothArmor, 0, 3)).setUnlocalizedName("Boots");
 		
 		leadOre = (new BlockDefault(Config.leadOreID)).setUnlocalizedName("Lead Ore");
-
-		cannon = (new BlockCannon(Config.cannonID));
+		
+		cannon = (new BlockCannon(Config.cannonID)).setUnlocalizedName("cannon").func_111022_d("civil war:cannon");
+		ghost = (new BlockGhost(Config.ghostID)).setUnlocalizedName("ghost");
 	}
 	public static void LanguageRegistry(){
 		Extras.addName(musket, "Musket");
@@ -145,6 +148,7 @@ public class Registry {
 		GameRegistry.registerWorldGenerator(new Ore());
 			
 		Extras.addBlock(cannon, "Cannon");
+		Extras.addBlock(ghost, "Ghost Block: IF YOU SEE THIS YOU SCREWED UP");
 		Extras.addBlock(leadOre, "Lead Ore");
 		//CivilWar.CwLogger.log(Level.INFO, "Registered Game Registry");
 	}
@@ -173,5 +177,7 @@ public class Registry {
 		OreDictionary.registerOre("oreLead", leadOre);
 		OreDictionary.registerOre("ingotLead", new ItemStack(lead));
 		MinecraftForge.setBlockHarvestLevel(leadOre, "pickaxe", 3);
+		MinecraftForge.setBlockHarvestLevel(cannon, "pickaxe", 3);
+		MinecraftForge.setBlockHarvestLevel(cannon, "pickaxe", 3);
 	}
 }

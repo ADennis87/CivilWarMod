@@ -19,6 +19,7 @@ public class BlockDefault extends Block{
 	if(blockID == Registry.leadOre.blockID)
 	{
 		this.blockIcon = iconRegister.registerIcon("Civil War:leadOre");
+		this.func_111022_d("Civil War:leadOre");
 	}
 	}
 

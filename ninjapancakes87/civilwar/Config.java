@@ -15,6 +15,7 @@ public class Config {
 	public static int Soldier_UnionID;
 	public static int Soldier_RebelID;
 	public static int cannonID;
+	public static int ghostID;
 	
 	public static int MusketID;
 	public static int musketballID;
@@ -70,8 +71,9 @@ public class Config {
 		leadOreID = config.getBlock("Lead Ore", 3920).getInt();
 		
 		cannonID = config.getBlock("Cannon",3921).getInt();
+		ghostID = config.getBlock("Ghost", "Is a technical block used to correct the collision bounding box for the cannon", 3922).getInt();
 		cannonS = config.get("Misc", "Cannon TE Name", "Cannon").getString();
-		attackTime = config.get("Misc", "Soldier Attack Rate (set higher for longer breaks inbetween shots, and set lower for less time between shots", 25).getInt();
+		attackTime = config.get("Misc", "Soldier Attack Rate (set higher for longer breaks inbetween shots, and set lower for less time between shots", 15).getInt();
 		
 		config.save();
 	}

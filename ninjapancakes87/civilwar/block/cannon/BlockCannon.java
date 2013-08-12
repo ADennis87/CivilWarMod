@@ -9,6 +9,7 @@ import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.dispenser.PositionImpl;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -33,7 +34,7 @@ public class BlockCannon extends BlockContainer {
 		this.setHardness(3.0F);
 		this.setResistance(2000.0F);
 		this.setBurnProperties(id, 0, 100);
-		this.setBlockBounds(0F, 0F, 0F, 2F, 1F, 2F);
+		//this.setBlockBounds(0F, 0F, 0F, 2F, 1F, 2F);
 	}
 	public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
@@ -47,31 +48,84 @@ public class BlockCannon extends BlockContainer {
 		}
 		int par7 = MathHelper.floor_double((double)(par5EntityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		TileEntityCannon tile = (TileEntityCannon)par1World.getBlockTileEntity(par2, par3, par4);
-
         if(tile != null){
             //South
             if(par7 == 0){
                 tile.setRotation((byte)2);
                 par1World.setBlockMetadataWithNotify(par2, par3, par4, 3, 2);
+                if(par1World.getBlockId(par2, par3, par4 + 1) == 0){
+                	par1World.setBlock(par2, par3, par4 + 1, Registry.ghost.blockID);
+                }
+                else{
+                	par1World.setBlockToAir(par2, par3, par4);
+                }
             }
             //West
             if(par7 == 1){
                 tile.setRotation((byte)5);
                 par1World.setBlockMetadataWithNotify(par2, par3, par4, 4, 2);
+                if(par1World.getBlockId(par2 - 1, par3, par4) == 0){
+                	par1World.setBlock(par2 - 1, par3, par4, Registry.ghost.blockID);
+                }
+                else{
+                	par1World.setBlockToAir(par2, par3, par4);
+                }
             }
             //North
             if(par7 == 2){
                 tile.setRotation((byte)3);
                 par1World.setBlockMetadataWithNotify(par2, par3, par4, 2, 2);
+                if(par1World.getBlockId(par2, par3, par4 - 1) == 0){
+                	par1World.setBlock(par2, par3, par4 - 1, Registry.ghost.blockID);
+                }
+                else{
+                	par1World.setBlockToAir(par2, par3, par4);
+                }
             }
             //East
             if(par7 == 3){
                 tile.setRotation((byte)4);
                 par1World.setBlockMetadataWithNotify(par2, par3, par4, 5, 2);
+                if(par1World.getBlockId(par2 + 1, par3, par4) == 0){
+                	par1World.setBlock(par2 + 1, par3, par4, Registry.ghost.blockID);
+                }
+                else{
+                	par1World.setBlockToAir(par2, par3, par4);
+                }
             }
         }
-
 	}
+	/*
+	public void onBlockAdded(World par1World, int par2, int par3, int par4){
+			boolean flag = par1World.getBlockId(par2, par3, par4 + 1) == 0;
+			boolean flag2 = par1World.getBlockId(par2 - 1, par3, par4) == 0;
+			boolean flag3 = par1World.getBlockId(par2, par3, par4 - 1) == 0;
+			boolean flag4 = par1World.getBlockId(par2 + 1, par3, par4) == 0;
+			int r = te.getRotation();
+			if(r == 2){
+				if(!flag){
+				par1World.setBlockToAir(par2, par3, par4);
+				}
+			}
+			else if(r == 5){
+				if(!flag2){
+					par1World.setBlockToAir(par2, par3, par4);
+				}
+			}
+			else if(r == 3){
+				if(!flag3){
+					par1World.setBlockToAir(par2, par3, par4);
+				}
+			}
+			else if(r == 4){
+				if(!flag4){
+					par1World.setBlockToAir(par2, par3, par4);
+				}
+			}
+		}
+	public boolean getIsBlockAir(World par1World, int par2, int par3, int par4){
+		return true;
+	}*/
 	 public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
 	    {
 		 	if(!par1World.isRemote){
@@ -138,4 +192,23 @@ public class BlockCannon extends BlockContainer {
 	public boolean isOpaqueCube() {
 		return false;
 	}
+	 public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5) {
+		 int id = Registry.ghost.blockID;
+		 boolean flag = par1World.getBlockId(par2 + 1, par3, par4) == id;
+		 boolean flag2 = par1World.getBlockId(par2 - 1, par3, par4) == id; 
+		 boolean flag3 = par1World.getBlockId(par2, par3, par4 + 1) == id; 
+		 boolean flag4 = par1World.getBlockId(par2, par3, par4 - 1) == id; 
+	    	if(flag){
+	    		par1World.setBlockToAir(par2 + 1, par3, par4);
+	    	}
+	    	if(flag2){
+	    		par1World.setBlockToAir(par2 - 1, par3, par4);
+	    	}
+	    	if(flag3){
+	    		par1World.setBlockToAir(par2, par3, par4 + 1);
+	    	}
+	    	if(flag4){
+	    		par1World.setBlockToAir(par2, par3, par4 - 1);
+	    	}
+	    }
 }
