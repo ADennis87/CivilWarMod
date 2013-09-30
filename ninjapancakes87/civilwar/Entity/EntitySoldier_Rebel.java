@@ -58,7 +58,7 @@ public class EntitySoldier_Rebel extends EntitySoldier implements INpc, IRangedA
         this.randomTickDivider = 0;
         this.moveSpeed = 1.0D;
         this.applyRandomTrade(this, rand);
-        this.addDefaultEquipment();
+        this.addItems();
         this.setSize(0.6F, 1.8F);
         this.getNavigator().setBreakDoors(true);
         this.getNavigator().setAvoidsWater(true);
@@ -76,16 +76,6 @@ public class EntitySoldier_Rebel extends EntitySoldier implements INpc, IRangedA
     public boolean isAIEnabled()
     {
         return true;
-    }
-    public void setAttackTarget(EntityLiving par1EntityLiving){
-    	super.setAttackTarget(par1EntityLiving);
-    }
-    protected void func_110147_ax()
-    {
-    	 super.func_110147_ax();
-    }
-    protected void entityInit(){
-    	super.entityInit();
     }
     public void setProfession(int par1)
     {
@@ -108,17 +98,9 @@ public class EntitySoldier_Rebel extends EntitySoldier implements INpc, IRangedA
         return false;
     }
 
-	 private void addDefaultEquipment()
+	 private void addItems()
 	    {
-	        switch (this.getProfession())
-	        {
-	        default: this.setCurrentItemOrArmor(0, new ItemStack(Registry.musket));
-	        case 0: this.setCurrentItemOrArmor(0, new ItemStack(Registry.coin2));
-	        case 1:	this.setCurrentItemOrArmor(0, new ItemStack(Registry.revolver));
-	        case 2: this.setCurrentItemOrArmor(0, new ItemStack(Item.appleRed));
-	        case 3: this.setCurrentItemOrArmor(0, new ItemStack(Registry.musketball));
-	        case 4: this.setCurrentItemOrArmor(0, new ItemStack(Registry.musket));
-	        }
+		 setCurrentItemOrArmor(0, new ItemStack(Registry.musket));
 	       }
 	   
 	    public boolean interact(EntityPlayer par1EntityPlayer)
@@ -178,7 +160,7 @@ public class EntitySoldier_Rebel extends EntitySoldier implements INpc, IRangedA
 	                    par1EntityPlayer.addChatMessage("You have recruited a " + this.getProfessionName(this.getProfession()) + " to your army");
 	                    this.setPathToEntity((PathEntity)null);
 	                    this.setAttackTarget((EntityLiving)null);
-	                    this.setEntityHealth(20);
+	                    this.setHealth(20);
 	                    this.setOwner(par1EntityPlayer.username);
 	                    this.playTameEffect(true);
 	                }
@@ -202,38 +184,8 @@ public class EntitySoldier_Rebel extends EntitySoldier implements INpc, IRangedA
 
 	   public EntityLivingData func_110161_a(EntityLivingData par1EntityLivingData)
 	    {
-	        par1EntityLivingData = super.func_110161_a(par1EntityLivingData);
+	        par1EntityLivingData = super.onSpawnWithEgg(par1EntityLivingData);
 	        super.applyRandomTrade(this, worldObj.rand);
 	        return par1EntityLivingData;
 	    }
-	   protected Item setArmor(int par1){
-	    	Item i = null;
-	    	if(par1 == 1){
-	    		i = Registry.cap;
-	    	}
-	    	else if(par1 == 2){
-	    		i = Registry.unionuniform;
-	    	}
-	    	else if(par1 == 3){
-	    		i = Registry.rebeluniform;
-	    	}
-	    	else if(par1 == 4){
-	    		i = Registry.legs;
-	    	}
-	    	else if(par1 == 5){
-	    		i = Registry.boots;
-	    	}
-	    	return i;
-	    }
-	   private void addArmor()
-	    {
-	        switch (this.getProfession())
-	        {
-	        case 0: setCurrentItemOrArmor(1,new ItemStack(setArmor(1))); this.setCurrentItemOrArmor(2,new ItemStack(setArmor(3))); this.setCurrentItemOrArmor(3,new ItemStack(setArmor(4))); this.setCurrentItemOrArmor(4,new ItemStack(setArmor(5)));
-	        case 1:	setCurrentItemOrArmor(1,new ItemStack(setArmor(1))); this.setCurrentItemOrArmor(2,new ItemStack(setArmor(3))); this.setCurrentItemOrArmor(3,new ItemStack(setArmor(4))); this.setCurrentItemOrArmor(4,new ItemStack(setArmor(5)));
-	        case 2: setCurrentItemOrArmor(1, new ItemStack(setArmor(1)));
-	        case 3: setCurrentItemOrArmor(1,new ItemStack(setArmor(1))); this.setCurrentItemOrArmor(2,new ItemStack(setArmor(3))); this.setCurrentItemOrArmor(3,new ItemStack(setArmor(4))); this.setCurrentItemOrArmor(4,new ItemStack(setArmor(5)));
-	        case 4: setCurrentItemOrArmor(1,new ItemStack(setArmor(1))); this.setCurrentItemOrArmor(2,new ItemStack(setArmor(3))); this.setCurrentItemOrArmor(3,new ItemStack(setArmor(4))); this.setCurrentItemOrArmor(4,new ItemStack(setArmor(5)));
-	        }
-	       }
 }

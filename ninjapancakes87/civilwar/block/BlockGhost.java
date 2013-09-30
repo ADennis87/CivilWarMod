@@ -13,6 +13,7 @@ public class BlockGhost extends BlockDefault{
 	public BlockGhost(int par1) {
 		super(par1);
 		this.setCreativeTab((CreativeTabs)null);
+		this.setHardness(15.0F);
 
 	}
 	public int quantityDropped(Random par1Random){
@@ -29,7 +30,6 @@ public class BlockGhost extends BlockDefault{
 	if(blockID == Registry.ghost.blockID)
 	{
 		this.blockIcon = iconRegister.registerIcon("Civil War:ghost");
-		this.func_111022_d("Civil War:ghost");
 	}
 	}
     public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5) {
@@ -50,4 +50,8 @@ public class BlockGhost extends BlockDefault{
     		par1World.setBlockToAir(par2, par3, par4 - 1);
     	}
     }
+    @Override
+    public int idDropped(int par1, Random random, int zero) {
+       return 0;
+}
 }

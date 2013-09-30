@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
@@ -25,6 +26,7 @@ import ninjapancakes87.civilwar.item.ItemMusket;
 import ninjapancakes87.civilwar.item.ItemRevolver;
 import ninjapancakes87.civilwar.item.ItemSaber;
 import ninjapancakes87.civilwar.worldgen.Ore;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -100,7 +102,7 @@ public class Registry {
 		
 		leadOre = (new BlockDefault(Config.leadOreID)).setUnlocalizedName("Lead Ore");
 		
-		cannon = (new BlockCannon(Config.cannonID)).setUnlocalizedName("cannon").func_111022_d("civil war:cannon");
+		cannon = (new BlockCannon(Config.cannonID)).setUnlocalizedName("cannon");
 		ghost = (new BlockGhost(Config.ghostID)).setUnlocalizedName("ghost");
 	}
 	public static void LanguageRegistry(){
@@ -147,9 +149,9 @@ public class Registry {
 		
 		GameRegistry.registerWorldGenerator(new Ore());
 			
-		Extras.addBlock(cannon, "Cannon");
-		Extras.addBlock(ghost, "Ghost Block: IF YOU SEE THIS YOU SCREWED UP");
-		Extras.addBlock(leadOre, "Lead Ore");
+		Extras.addBlock(cannon, "Cannon", 2);
+		Extras.addBlock(ghost, "Ghost Block: IF YOU SEE THIS YOU SCREWED UP", 2);
+		Extras.addBlock(leadOre, "Lead Ore", 3);
 		//CivilWar.CwLogger.log(Level.INFO, "Registered Game Registry");
 	}
 	public static void EntityRegistry(){
@@ -174,10 +176,8 @@ public class Registry {
 	}
 	public static void EverythingElse(){
 		GameRegistry.registerTileEntity(TileEntityCannon.class, Config.cannonS);
+		NetworkRegistry.instance().registerGuiHandler(CW, new GuiHandler());
 		OreDictionary.registerOre("oreLead", leadOre);
 		OreDictionary.registerOre("ingotLead", new ItemStack(lead));
-		MinecraftForge.setBlockHarvestLevel(leadOre, "pickaxe", 3);
-		MinecraftForge.setBlockHarvestLevel(cannon, "pickaxe", 3);
-		MinecraftForge.setBlockHarvestLevel(cannon, "pickaxe", 3);
 	}
 }

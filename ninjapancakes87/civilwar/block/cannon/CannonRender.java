@@ -41,19 +41,19 @@ public class CannonRender implements IItemRenderer {
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
     	switch (type) {
             case ENTITY: {
-                renderCannon(-0.5F, 0.0F, 0.5F, 0.25F, 0F, 0F, 0F, 0F, 0);
+                renderCannon(-0.5F, 5.0F, 0.5F, 0.25F, 180F, 0F, 0F, 0F, false);
                 return;
             }
             case EQUIPPED: {
-                renderCannon(1.0F, 5.1F, 3.0F, 0.25F, 180F, 0F, 0F, 0F, 0);
+                renderCannon(1.0F, 6.1F, 3.0F, 0.25F, 180F, 180F, 0F, 0F, false);
                 return;
             }
             case EQUIPPED_FIRST_PERSON: {
-                renderCannon(0.0F, 6.0F, 0.0F, 0.25F, -90F, -110F, 0F, 90F, 1);
+                renderCannon(0F, 6.0F, 0F, 0.25F, 180F, 0F, 0F, 270F, false);
                 return;
             }
             case INVENTORY: {
-                renderCannon(-1.0F, 2.2F, -0.1F, 0.23F, 180F, 0F, 0F, 0F, 0);
+                renderCannon(0.8F, 4.3F, 0F, 0.23F, 180F, 180F, 0F, 0F, false);
                 return;
             }
             default:
@@ -61,7 +61,7 @@ public class CannonRender implements IItemRenderer {
         }
     }
 
-    private void renderCannon(float x, float y, float z, float scale, float rotate, float r1, float r2, float r3, float a) {
+    private void renderCannon(float x, float y, float z, float scale, float rotate, float r1, float r2, float r3, boolean ra) {
 
         GL11.glPushMatrix();
         GL11.glDisable(GL11.GL_LIGHTING);
@@ -70,13 +70,9 @@ public class CannonRender implements IItemRenderer {
         GL11.glScalef(scale, scale, scale);
         GL11.glTranslatef(x, y, z);
         GL11.glRotatef(rotate, r1, r2, r3);
-        if( a == 1){
-        	GL11.glRotatef(rotate, r1, r2, r3);
-        }
 
         // Bind texture
-        //this.renderManager.renderEngine.func_110577_a(texture);
-        FMLClientHandler.instance().getClient().renderEngine.func_110577_a(texture);
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
 
         // Render
         

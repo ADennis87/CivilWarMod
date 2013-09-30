@@ -1,10 +1,14 @@
 package ninjapancakes87.civilwar.item;
 
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import ninjapancakes87.civilwar.CivilWar;
 import ninjapancakes87.civilwar.Extras;
 import ninjapancakes87.civilwar.Registry;
+import ninjapancakes87.civilwar.block.cannon.TileEntityCannon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -61,5 +65,4 @@ public class ItemDefault extends Item{
 			this.itemIcon = iconRegister.registerIcon("Civil War:saber");
 		}
 	}
-
 }

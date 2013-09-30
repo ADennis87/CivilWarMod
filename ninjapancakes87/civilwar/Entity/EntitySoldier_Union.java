@@ -74,9 +74,6 @@ public class EntitySoldier_Union extends EntitySoldier implements INpc, IRangedA
     {
         return true;
     }
-    protected void entityInit(){
-    	super.entityInit();
-    }
     public void setProfession(int par1)
     {
     	super.setProfession(par1);
@@ -101,32 +98,8 @@ public class EntitySoldier_Union extends EntitySoldier implements INpc, IRangedA
         return false;
     }
 	 private void addItems(){
-		 int x = this.getProfession();
-		 if(x == 0){
-			setCurrentItemOrArmor(0, new ItemStack(Registry.musket, 1, 0));
-		 }
-		 else if(x == 1){
-			setCurrentItemOrArmor(0, new ItemStack(Registry.revolver, 1, 0));
-		 }
-		else if(x == 2){
-			setCurrentItemOrArmor(0, new ItemStack(Item.appleRed, 1, 0));
-		 }
-		else if(x == 3){
-			setCurrentItemOrArmor(0, new ItemStack(Item.gunpowder, 1, 0));
-		 }
-		else if(x == 4){
-	        setCurrentItemOrArmor(0, new ItemStack(Registry.musket, 1, 0));
-	     }
-	 }
-	    protected void setArmor(int par1){
-	    	if(par1 == 0){
-	    		setCurrentItemOrArmor(1, new ItemStack(Item.plateIron));
-	    	}
-	    	else if(par1 == 1){
-	    		setCurrentItemOrArmor(0, new ItemStack(Registry.cap));
-	    	}
-	    }
-	   
+		 setCurrentItemOrArmor(0, new ItemStack(Registry.musket, 1, 0));
+	 }	   
 	    public boolean interact(EntityPlayer par1EntityPlayer)
 	    {
 	        ItemStack itemstack = par1EntityPlayer.inventory.getCurrentItem();
@@ -184,7 +157,7 @@ public class EntitySoldier_Union extends EntitySoldier implements INpc, IRangedA
 	                    par1EntityPlayer.addChatMessage("You have recruited a " + this.getProfessionName(this.getProfession()) + " to your army");
 	                    this.setPathToEntity((PathEntity)null);
 	                    this.setAttackTarget((EntityLiving)null);
-	                    this.setEntityHealth(20);
+	                    this.setHealth(20);
 	                    this.setOwner(par1EntityPlayer.username);
 	                    this.playTameEffect(true);
 	                }
@@ -209,7 +182,7 @@ public class EntitySoldier_Union extends EntitySoldier implements INpc, IRangedA
 
 	   public EntityLivingData func_110161_a(EntityLivingData par1EntityLivingData)
 	    {
-	        par1EntityLivingData = super.func_110161_a(par1EntityLivingData);
+	        par1EntityLivingData = super.onSpawnWithEgg(par1EntityLivingData);
 	        super.applyRandomTrade(this, worldObj.rand);
 	        return par1EntityLivingData;
 	    }

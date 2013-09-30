@@ -13,9 +13,11 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.src.ModLoader;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import ninjapancakes87.civilwar.CivilWar;
 import ninjapancakes87.civilwar.Extras;
@@ -31,10 +33,9 @@ public class BlockCannon extends BlockContainer {
 	public BlockCannon(int id) {
 		super(id, Material.iron);
 		this.setCreativeTab(CivilWar.tabCivilWar);
-		this.setHardness(3.0F);
+		this.setHardness(15.0F);
 		this.setResistance(2000.0F);
 		this.setBurnProperties(id, 0, 100);
-		//this.setBlockBounds(0F, 0F, 0F, 2F, 1F, 2F);
 	}
 	public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
@@ -51,7 +52,6 @@ public class BlockCannon extends BlockContainer {
         if(tile != null){
             //South
             if(par7 == 0){
-                tile.setRotation((byte)2);
                 par1World.setBlockMetadataWithNotify(par2, par3, par4, 3, 2);
                 if(par1World.getBlockId(par2, par3, par4 + 1) == 0){
                 	par1World.setBlock(par2, par3, par4 + 1, Registry.ghost.blockID);
@@ -62,7 +62,6 @@ public class BlockCannon extends BlockContainer {
             }
             //West
             if(par7 == 1){
-                tile.setRotation((byte)5);
                 par1World.setBlockMetadataWithNotify(par2, par3, par4, 4, 2);
                 if(par1World.getBlockId(par2 - 1, par3, par4) == 0){
                 	par1World.setBlock(par2 - 1, par3, par4, Registry.ghost.blockID);
@@ -73,7 +72,6 @@ public class BlockCannon extends BlockContainer {
             }
             //North
             if(par7 == 2){
-                tile.setRotation((byte)3);
                 par1World.setBlockMetadataWithNotify(par2, par3, par4, 2, 2);
                 if(par1World.getBlockId(par2, par3, par4 - 1) == 0){
                 	par1World.setBlock(par2, par3, par4 - 1, Registry.ghost.blockID);
@@ -84,7 +82,6 @@ public class BlockCannon extends BlockContainer {
             }
             //East
             if(par7 == 3){
-                tile.setRotation((byte)4);
                 par1World.setBlockMetadataWithNotify(par2, par3, par4, 5, 2);
                 if(par1World.getBlockId(par2 + 1, par3, par4) == 0){
                 	par1World.setBlock(par2 + 1, par3, par4, Registry.ghost.blockID);
@@ -95,45 +92,31 @@ public class BlockCannon extends BlockContainer {
             }
         }
 	}
-	/*
-	public void onBlockAdded(World par1World, int par2, int par3, int par4){
-			boolean flag = par1World.getBlockId(par2, par3, par4 + 1) == 0;
-			boolean flag2 = par1World.getBlockId(par2 - 1, par3, par4) == 0;
-			boolean flag3 = par1World.getBlockId(par2, par3, par4 - 1) == 0;
-			boolean flag4 = par1World.getBlockId(par2 + 1, par3, par4) == 0;
-			int r = te.getRotation();
-			if(r == 2){
-				if(!flag){
-				par1World.setBlockToAir(par2, par3, par4);
-				}
-			}
-			else if(r == 5){
-				if(!flag2){
-					par1World.setBlockToAir(par2, par3, par4);
-				}
-			}
-			else if(r == 3){
-				if(!flag3){
-					par1World.setBlockToAir(par2, par3, par4);
-				}
-			}
-			else if(r == 4){
-				if(!flag4){
-					par1World.setBlockToAir(par2, par3, par4);
-				}
-			}
-		}
-	public boolean getIsBlockAir(World par1World, int par2, int par3, int par4){
-		return true;
-	}*/
 	 public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
 	    {
 		 	if(!par1World.isRemote){
-		 		this.fire(par1World, par2, par3, par4);
+		 		//this.fire(par1World, par2, par3, par4);
+		 		par5EntityPlayer.openGui(CivilWar.instance, 6, par1World, par2, par3, par4);
 		 		return true;
 		 	}
 	        return false;
 	    }
+	 @Override
+	 public void setBlockBoundsBasedOnState(IBlockAccess iba, int par2, int par3, int par4){
+		 int par5 = iba.getBlockMetadata(par2, par3, par4);
+		 if(par5 == 3){
+			 this.setBlockBounds(0, 0, 0, 1, 1, 2);
+		 }
+		 if(par5 == 2){
+			 this.setBlockBounds(0, 0, -1, 1, 1, 1);
+		 }
+		 if(par5 == 5){
+			 this.setBlockBounds(0, 0, 0, 2, 1, 1);
+		 }
+		 if(par5 == 4){
+			 this.setBlockBounds(-1, 0, 0, 1, 1, 1);
+		 }
+	 }
 	protected void fire(World par1World, int par2, int par3, int par4)
     {
         BlockSourceImpl blocksourceimpl = new BlockSourceImpl(par1World, par2, par3, par4);
@@ -151,7 +134,7 @@ public class BlockCannon extends BlockContainer {
         IPosition iposition = BlockCannon.getIPositionFromBlockSource(par1IBlockSource);
         EnumFacing enumfacing = BlockCannon.getFacing(par1IBlockSource.getBlockMetadata());
         EntityCannonBall iprojectile = dbc.getProjectileEntity(world, iposition);
-        iprojectile.setThrowableHeading((double)enumfacing.getFrontOffsetX(), (double)((float)enumfacing.getFrontOffsetY()), (double)enumfacing.getFrontOffsetZ(), Extras.func_82500_b(), Extras.func_82498_a());
+        iprojectile.setThrowableHeading((double)enumfacing.getFrontOffsetX(), (double)((float)enumfacing.getFrontOffsetY()), (double)enumfacing.getFrontOffsetZ(), 6.0F, 1.1F);
         world.spawnEntityInWorld((Entity)iprojectile);
         //par2ItemStack.splitStack(1);
         return par2ItemStack;
@@ -210,5 +193,6 @@ public class BlockCannon extends BlockContainer {
 	    	if(flag4){
 	    		par1World.setBlockToAir(par2, par3, par4 - 1);
 	    	}
+	    	//this.dropBlockAsItem(par1World, par2, par3, par4, par5, 1);
 	    }
 }

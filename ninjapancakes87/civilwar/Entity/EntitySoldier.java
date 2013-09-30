@@ -45,17 +45,17 @@ public class EntitySoldier extends EntityTameable implements INpc, IRangedAttack
         super(par1World);
     }
 
-	protected void func_110147_ax()
+	protected void applyEntityAttributes()
     {
-        super.func_110147_ax();
+        super.applyEntityAttributes();
         // Max Health - default 20.0D - min 0.0D - max Double.MAX_VALUE
-        this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(50.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(this.isTamed() ? 20 : 8);
         // Follow Range - default 32.0D - min 0.0D - max 2048.0D
-        this.func_110148_a(SharedMonsterAttributes.field_111265_b).func_111128_a(32.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.followRange).setAttribute(32.0D);
         // Knockback Resistance - default 0.0D - min 0.0D - max 1.0D
-        this.func_110148_a(SharedMonsterAttributes.field_111266_c).func_111128_a(0.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setAttribute(0.0D);
         // Movement Speed - default 0.699D - min 0.0D - max Double.MAX_VALUE
-        this.func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.13D);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.13D);
     }
 	protected void entityInit()
     {
@@ -88,11 +88,6 @@ public class EntitySoldier extends EntityTameable implements INpc, IRangedAttack
     	default: return "Private";
     	}
     	
-    }
-
-	public int getMaxHealth()
-    {
-        return this.isTamed() ? 20 : 8;
     }
 	 public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
 	    {

@@ -3,6 +3,7 @@ package ninjapancakes87.civilwar.item;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -14,11 +15,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderAmmo extends Render
 {
-	private static final ResourceLocation field_110780_a = new ResourceLocation("civil war:textures/items/ammo.png");
+	private static final ResourceLocation texture = new ResourceLocation("civil war:textures/items/ammo.png");
 
     public void renderAmmo(EntityMusketBall par1EntityArrow, double par2, double par4, double par6, float par8, float par9)
     {
-    	this.func_110775_a(par1EntityArrow);
+    	this.bindEntityTexture(par1EntityArrow);
         GL11.glPushMatrix();
         GL11.glTranslatef((float)par2, (float)par4, (float)par6);
         GL11.glRotatef(par1EntityArrow.prevRotationYaw + (par1EntityArrow.rotationYaw - par1EntityArrow.prevRotationYaw) * par9 - 90.0F, 0.0F, 1.0F, 0.0F);
@@ -67,21 +68,17 @@ public class RenderAmmo extends Render
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
     }
-
-    protected ResourceLocation func_110779_a(EntityMusketBall par1EntityArrow)
-    {
-        return field_110780_a;
-    }
-
-    protected ResourceLocation func_110775_a(Entity par1Entity)
-    {
-        return this.func_110779_a((EntityMusketBall)par1Entity);
-    }
-
 	@Override
-	public void doRender(Entity entity, double d0, double d1, double d2,float f, float f1) {
-		this.renderAmmo((EntityMusketBall)entity, d0, d1, d2, f, f1);
-		
+	public void doRender(Entity entity, double d0, double d1, double d2,float f, float f1) 
+	{
+		this.renderAmmo((EntityMusketBall)entity, d0, d1, d2, f, f1);		
 	}
-	
+	protected ResourceLocation getArrowTextures(EntityArrow par1EntityArrow)
+    {
+        return texture;
+    }
+	@Override
+	protected ResourceLocation getEntityTexture(Entity entity) {
+		return this.getArrowTextures((EntityArrow)entity);
+	}	
 }
