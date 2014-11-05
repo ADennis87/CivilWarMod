@@ -1,0 +1,8 @@
+{
+    "gunshot" : {"category" : "master", "sounds" : [{"name" : "gunshot", "stream": false}]},
+    "cannon" : {"category" : "master", "sounds" : [{"name" : "cannon", "stream": false}]},
+    "hurt" : {"category" : "master", "sounds" : [{"name" : "hurt", "stream": false}]},
+    "thump" : {"category" : "master", "sounds" : [{"name" : "thump", "stream": false}]}
+    
+    
+}

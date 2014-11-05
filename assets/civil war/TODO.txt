@@ -1,0 +1,9 @@
+1. Horseman Soldier
+2. Camps
+5. GUI for soldier
+7. Villages/Citizens, soldiers protect them.
+9.  Add afed's update: More guns (sniper), barbed wire, and a battlefield biome.
+10. Make bullets visible.
+11. Flags.
+12. Make soldiers more diverse their abilities (doctors heal, weapons master sell you ammo)
+

@@ -1,31 +1,35 @@
 package ninjapancakes87.civilwar.item;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import javax.swing.Icon;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import ninjapancakes87.civilwar.CivilWar;
 import ninjapancakes87.civilwar.Registry;
+import ninjapancakes87.civilwar.Strings;
+import ninjapancakes87.civilwar.entity.EntityMusketBall;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMusket extends Item{
 	
-	public static final String[] bowPullIconNameArray = new String[] {"Civil War:musket", "Civil War:musket", "Civil War:musket"};
+	public static final String[] bowPullIconNameArray = new String[] {Strings.MUSKET_1, Strings.MUSKET_1, Strings.MUSKET_1};
     @SideOnly(Side.CLIENT)
-    private Icon[] iconArray;
+    private IIcon[] iconArray;
 
-    public ItemMusket(int par1)
+    public ItemMusket()
     {
-        super(par1);
+        super();
         this.maxStackSize = 1;
         this.setMaxDamage(384);
         this.setCreativeTab(CivilWar.tabCivilWar);
@@ -48,7 +52,7 @@ public class ItemMusket extends Item{
 
         boolean flag = par3EntityPlayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, par1ItemStack) > 0;
 
-        if (flag || par3EntityPlayer.inventory.hasItem(Registry.musketball.itemID))
+        if (flag || par3EntityPlayer.inventory.hasItem(Registry.musketball))
         {
             float f = (float)j / 20.0F;
             f = (f * f + f * 2.0F) / 3.0F;
@@ -98,7 +102,7 @@ public class ItemMusket extends Item{
             }
             else
             {
-                par3EntityPlayer.inventory.consumeInventoryItem(Registry.musketball.itemID);
+                par3EntityPlayer.inventory.consumeInventoryItem(Registry.musketball);
             }
 
             if (!par2World.isRemote)
@@ -141,7 +145,7 @@ public class ItemMusket extends Item{
             return event.result;
         }
 
-        if (par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItem(Registry.musketball.itemID))
+        if (par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItem(Registry.musketball))
         {
             par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
         }
@@ -158,10 +162,10 @@ public class ItemMusket extends Item{
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister par1IconRegister)
+    public void registerIcons(IIconRegister par1IconRegister)
     {
         this.itemIcon = par1IconRegister.registerIcon("Civil War:musket");
-        this.iconArray = new Icon[bowPullIconNameArray.length];
+        this.iconArray = new IIcon[bowPullIconNameArray.length];
 
         for (int i = 0; i < this.iconArray.length; ++i)
         {
@@ -174,7 +178,7 @@ public class ItemMusket extends Item{
     /**
      * used to cycle through icons based on their used duration, i.e. for the bow
      */
-    public Icon getItemIconForUseDuration(int par1)
+    public IIcon getItemIconForUseDuration(int par1)
     {
         return this.iconArray[par1];
     }

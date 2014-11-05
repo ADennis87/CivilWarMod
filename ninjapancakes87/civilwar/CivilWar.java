@@ -1,6 +1,7 @@
 package ninjapancakes87.civilwar;
 
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.core.Logger;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
@@ -13,10 +14,8 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 
 @Mod(modid = CivilWar.modid, name = "Civil War", version = CivilWar.version)
-@NetworkMod(clientSideRequired = true, serverSideRequired = true)
 
 public class CivilWar {
 
@@ -31,20 +30,18 @@ public class CivilWar {
 	
 	public static final String modid = "civil war";
 	
-	public static final String version = "Build 5";
+	public static final String version = "Alpha 1.6";
 	
 	public static CreativeTabs tabCivilWar = new CreativeTabCivilWar(CreativeTabs.getNextID(),"tabCivilWar");
 	
-	public static Logger CwLogger = Logger.getLogger("Civil War");
+	//public static Logger CwLogger = Logger.getLogger("Civil War");
 	
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event){
-		Config.Init(event);
-		
+	public void preInit(FMLPreInitializationEvent event){		
 		EventHandlerCW eventHandler = new EventHandlerCW();
 		MinecraftForge.EVENT_BUS.register(eventHandler);
 		
-		CwLogger.setParent(FMLLog.getLogger());
+		//CwLogger.setParent((Logger) FMLLog.getLogger());
 		
 		Registry.preInit();
 	}

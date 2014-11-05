@@ -1,5 +1,6 @@
 {
-"pack": 1,
-"description": "Civil War Assets"
-}
+   "pack":{
+      "pack_format":1,
+      "description":"Civil War textures"
+   }
 }

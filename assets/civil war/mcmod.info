@@ -1,0 +1,19 @@
+[
+{
+  "modid": "civil war",
+  "name": "Civil War",
+  "description": "Recruit soldiers and fight on whichever side you want to!  Confederate or Union!",
+  "version": "Alpha 1.6",
+  "credits": "Created by Ninjapancakes87",
+  "logoFile": "banner.png",
+  "mcversion": "1.6.2",
+  "url": "http://www.minecraftforum.net/topic/1827084-152-civil-war-mod-wip-forge/",
+  "updateUrl": "",
+  "authors": [ "Ninjapancakes87, EZIOSREVELATION" ],
+  "parent":"",
+  "screenshots": [],
+  "dependencies": [
+         "mod_MinecraftForge"
+]
+}
+]

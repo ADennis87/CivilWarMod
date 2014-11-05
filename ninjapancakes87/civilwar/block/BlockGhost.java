@@ -2,16 +2,19 @@ package ninjapancakes87.civilwar.block;
 
 import java.util.Random;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import ninjapancakes87.civilwar.CivilWar;
 import ninjapancakes87.civilwar.Registry;
+import ninjapancakes87.civilwar.Strings;
 
 public class BlockGhost extends BlockDefault{
 
-	public BlockGhost(int par1) {
-		super(par1);
+	public BlockGhost() {
+		super();
 		this.setCreativeTab((CreativeTabs)null);
 		this.setHardness(15.0F);
 
@@ -25,18 +28,18 @@ public class BlockGhost extends BlockDefault{
 	protected boolean canSilkHarvest(){
 		return false;
 	}
-	public void registerIcons(IconRegister iconRegister)
+	/*public void registerIcons(IIconRegister iconRegister)
 	{
-	if(blockID == Registry.ghost.blockID)
+	if(this == Registry.ghost)
 	{
-		this.blockIcon = iconRegister.registerIcon("Civil War:ghost");
+		this.blockIcon = iconRegister.registerIcon(Strings.GHOST);
 	}
-	}
+	}*/
     public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5) {
-    	boolean flag = par1World.getBlockId(par2 + 1, par3, par4) == Registry.cannon.blockID;
-    	boolean flag2 = par1World.getBlockId(par2 - 1, par3, par4) == Registry.cannon.blockID; 
-    	boolean flag3 = par1World.getBlockId(par2, par3, par4 + 1) == Registry.cannon.blockID; 
-    	boolean flag4 = par1World.getBlockId(par2, par3, par4 - 1) == Registry.cannon.blockID; 
+    	boolean flag = par1World.getBlock(par2 + 1, par3, par4) == Registry.cannon;
+    	boolean flag2 = par1World.getBlock(par2 - 1, par3, par4) == Registry.cannon; 
+    	boolean flag3 = par1World.getBlock(par2, par3, par4 + 1) == Registry.cannon; 
+    	boolean flag4 = par1World.getBlock(par2, par3, par4 - 1) == Registry.cannon; 
     	if(flag){
     		par1World.setBlockToAir(par2 + 1, par3, par4);
     	}
@@ -50,8 +53,28 @@ public class BlockGhost extends BlockDefault{
     		par1World.setBlockToAir(par2, par3, par4 - 1);
     	}
     }
+    /*@Override
+    public Item getItemDropped(int par1, Random random, int zero) {
+       return Registry.cannon;
+}*/
     @Override
-    public int idDropped(int par1, Random random, int zero) {
-       return 0;
-}
+	 public void setBlockBoundsBasedOnState(IBlockAccess iba, int par2, int par3, int par4){
+		 int par5 = iba.getBlockMetadata(par2, par3, par4);
+		 //South
+		 if(par5 == 3){
+			 this.setBlockBounds(0, 0, 0, 1, 1, 2);
+		 }
+		 //North
+		 if(par5 == 2){
+			 this.setBlockBounds(0, 0, -1, 1, 1, 1);
+		 }
+		 //East
+		 if(par5 == 5){
+			 this.setBlockBounds(0, 0, 0, 2, 1, 1);
+		 }
+		 //West
+		 if(par5 == 4){
+			 this.setBlockBounds(-1, 0, 0, 1, 1, 1);
+		 }
+	 }
 }

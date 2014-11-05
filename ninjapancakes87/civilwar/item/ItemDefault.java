@@ -1,14 +1,12 @@
 package ninjapancakes87.civilwar.item;
 
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import ninjapancakes87.civilwar.CivilWar;
 import ninjapancakes87.civilwar.Extras;
 import ninjapancakes87.civilwar.Registry;
-import ninjapancakes87.civilwar.block.cannon.TileEntityCannon;
+import ninjapancakes87.civilwar.Strings;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -16,53 +14,56 @@ public class ItemDefault extends Item{
 	
 	public Extras e;
 	
-	public ItemDefault(int par1){
-		super(par1);
-		
+	public ItemDefault(){
+		super();
 		this.setCreativeTab(CivilWar.tabCivilWar);
 	}
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister)
+	public void registerIcons(IIconRegister iconRegister)
 	{
-		if(itemID == Registry.cannonball.itemID)
+		if(this == Registry.cannonball)
 		{
-			this.itemIcon = iconRegister.registerIcon("Civil War:cannonball");
+			this.itemIcon = iconRegister.registerIcon(Strings.CANNONBALL);
 		}
-		else if(itemID == Registry.cloth.itemID)
+		else if(this == Registry.cloth)
 		{
-			this.itemIcon = iconRegister.registerIcon("Civil War:cloth");
+			this.itemIcon = iconRegister.registerIcon(Strings.CLOTH);
 		}
-		else if(itemID == Registry.cloth2.itemID)
+		else if(this == Registry.cloth2)
 		{
-			this.itemIcon = iconRegister.registerIcon("Civil War:cloth2");
+			this.itemIcon = iconRegister.registerIcon(Strings.CLOTH2);
 		}
-		else if(itemID == Registry.coin.itemID)
+		else if(this == Registry.coin)
 		{
-			this.itemIcon = iconRegister.registerIcon("Civil War:coin");
+			this.itemIcon = iconRegister.registerIcon(Strings.COIN);
 		}
-		else if(itemID == Registry.coin2.itemID)
+		else if(this == Registry.coin2)
 		{
-			this.itemIcon = iconRegister.registerIcon("Civil War:coin2");
+			this.itemIcon = iconRegister.registerIcon(Strings.COIN2);
 		}
-		else if(itemID == Registry.lead.itemID)
+		else if(this == Registry.lead)
 		{
-			this.itemIcon = iconRegister.registerIcon("Civil War:lead");
+			this.itemIcon = iconRegister.registerIcon(Strings.LEAD);
 		}
-		else if(itemID == Registry.musket.itemID)
+		else if(this == Registry.musket)
 		{
-			this.itemIcon = iconRegister.registerIcon("Civil War:musket");
+			this.itemIcon = iconRegister.registerIcon(Strings.MUSKET_1);
 		}
-		else if(itemID == Registry.musketball.itemID)
+		else if(this == Registry.musketball)
 		{
-			this.itemIcon = iconRegister.registerIcon("Civil War:musketball");
+			this.itemIcon = iconRegister.registerIcon(Strings.MUSKETBALL);
 		}
-		else if(itemID == Registry.revolver.itemID)
+		else if(this == Registry.revolver)
 		{
-			this.itemIcon = iconRegister.registerIcon("Civil War:revolver");
+			this.itemIcon = iconRegister.registerIcon(Strings.REVOLVER);
 		}
-		else if(itemID == Registry.saber.itemID)
+		/*else if(this == Registry.haversack)
 		{
-			this.itemIcon = iconRegister.registerIcon("Civil War:saber");
+			this.itemIcon = iconRegister.registerIcon(Strings.HAVERSACK);
+		}*/
+		else if(this == Registry.Imucket)
+		{
+			this.itemIcon = iconRegister.registerIcon(Strings.MUCKET);
 		}
 	}
 }

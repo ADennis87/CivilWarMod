@@ -1,24 +1,26 @@
 package ninjapancakes87.civilwar.item;
 
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.util.Icon;
+import javax.swing.Icon;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRevolver extends ItemMusket{
     @SideOnly(Side.CLIENT)
-    private Icon[] iconArray;
+    private IIcon[] iconArray;
 	
 	public static final String[] bowPullIconNameArray = new String[] {"Civil War:revolver", "Civil War:revolver", "Civil War:revolver"};
 
-	public ItemRevolver(int par1) {
-		super(par1);
+	public ItemRevolver() {
+		super();
 	}
 	@SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister par1IconRegister)
+    public void registerIcons(IIconRegister par1IconRegister)
     {
         this.itemIcon = par1IconRegister.registerIcon("Civil War:revolver");
-        this.iconArray = new Icon[bowPullIconNameArray.length];
+        this.iconArray = new IIcon[bowPullIconNameArray.length];
 
         for (int i = 0; i < this.iconArray.length; ++i)
         {
